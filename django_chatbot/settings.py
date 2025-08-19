@@ -84,11 +84,12 @@ DATABASES = {
 }
 
 # Use PostgreSQL in production if DATABASE_URL is set
-if os.getenv('DATABASE_URL'):
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.config(
-        default=os.getenv('DATABASE_URL')
-    )
+# Temporarily disabled for Python 3.13 compatibility
+# if os.getenv('DATABASE_URL'):
+#     import dj_database_url
+#     DATABASES['default'] = dj_database_url.config(
+#         default=os.getenv('DATABASE_URL')
+#     )
 
 
 # Password validation
