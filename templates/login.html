@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - Hu Tao Chatbot{% endblock %}
+
+{% block styles %}
+<style>
+    :root {
+        --hutao-red: #E74C3C;
+        --hutao-dark-red: #C0392B;
+        --hutao-gold: #F39C12;
+        --hutao-brown: #8B4513;
+        --hutao-light-brown: #D2691E;
+        --hutao-white: #FFFFFF;
+        --hutao-black: #2C3E50;
+        --hutao-gray: #95A5A6;
+        --hutao-light-gray: #ECF0F1;
+        --hutao-shadow: rgba(0, 0, 0, 0.2);
+    }
+
+    body {
+        background: linear-gradient(135deg, var(--hutao-red) 0%, var(--hutao-dark-red) 50%, var(--hutao-brown) 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="plum" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23plum)"/></svg>');
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .login-container {
+        background: var(--hutao-white);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        max-width: 400px;
+        width: 90%;
+    }
+
+    .login-header {
+        background: linear-gradient(135deg, var(--hutao-red) 0%, var(--hutao-dark-red) 100%);
+        color: var(--hutao-white);
+        padding: 30px 20px;
+        text-align: center;
+        position: relative;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    .hutao-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--hutao-white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+        border: 3px solid var(--hutao-gold);
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .hutao-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .login-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .login-subtitle {
+        font-size: 14px;
+        opacity: 0.9;
+        margin: 5px 0 0 0;
+    }
+
+    .login-body {
+        padding: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: var(--hutao-black);
+        margin-bottom: 8px;
+        display: block;
+        font-size: 14px;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--hutao-light-gray);
+        border-radius: 12px;
+        font-size: 16px;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+
+    .form-input:focus {
+        outline: none;
+        border-color: var(--hutao-red);
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+    }
+
+    .login-btn {
+        width: 100%;
+        background: linear-gradient(135deg, var(--hutao-red) 0%, var(--hutao-dark-red) 100%);
+        color: var(--hutao-white);
+        border: none;
+        padding: 14px 20px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 10px;
+    }
+
+    .login-btn:hover {
+        background: linear-gradient(135deg, var(--hutao-dark-red) 0%, var(--hutao-brown) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+    }
+
+    .alert-danger {
+        background: #FEE2E2;
+        color: #DC2626;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #FECACA;
+        font-size: 14px;
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: var(--hutao-black);
+    }
+
+    .register-link a {
+        color: var(--hutao-red);
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .register-link a:hover {
+        text-decoration: underline;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-header">
+        <div class="hutao-avatar">
+            <img src="{% static 'images/hutao.jpg' %}" alt="Hu Tao" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span style="display: none; font-size: 30px;">💀</span>
+        </div>
+        <h1 class="login-title">Welcome Back!</h1>
+        <p class="login-subtitle">Time to chat with Hu Tao! 💀✨</p>
+    </div>
+    <div class="login-body">
+        {% if error_message %}
+            <div class="alert-danger">{{ error_message }}</div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="form-label" for="username">Username</label>
+                <input type="text" class="form-input" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" class="form-input" id="password" name="password" required>
+            </div>
+            <button type="submit" class="login-btn">Login 💀</button>
+        </form>
+        <div class="register-link">
+            Don't have an account? <a href="{% url 'register' %}">Register here!</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

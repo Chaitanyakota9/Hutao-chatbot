@@ -1,0 +1,22 @@
+databases:
+  - name: hutao-chatbot-db
+    databaseName: hutao_chatbot
+    user: hutao_user
+
+services:
+  - type: web
+    name: hutao-chatbot
+    env: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn django_chatbot.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: OPENAI_API_KEY
+        sync: false
+    databaseName: hutao-chatbot-db

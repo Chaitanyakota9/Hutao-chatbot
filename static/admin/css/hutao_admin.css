@@ -1,0 +1,238 @@
+/* Hu Tao Admin Theme */
+:root {
+    --hutao-red: #E74C3C;
+    --hutao-dark-red: #C0392B;
+    --hutao-gold: #F39C12;
+    --hutao-brown: #8B4513;
+    --hutao-white: #FFFFFF;
+    --hutao-black: #2C3E50;
+    --hutao-gray: #95A5A6;
+    --hutao-light-gray: #ECF0F1;
+}
+
+/* Header Styling */
+#header {
+    background: linear-gradient(135deg, var(--hutao-red) 0%, var(--hutao-dark-red) 100%) !important;
+    color: var(--hutao-white) !important;
+    border-bottom: 3px solid var(--hutao-gold) !important;
+}
+
+#header h1 {
+    color: var(--hutao-white) !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+#branding h1 {
+    color: var(--hutao-white) !important;
+}
+
+/* Navigation */
+.module h2, .module caption, .inline-group h2 {
+    background: linear-gradient(135deg, var(--hutao-red) 0%, var(--hutao-dark-red) 100%) !important;
+    color: var(--hutao-white) !important;
+    border-bottom: 2px solid var(--hutao-gold) !important;
+}
+
+/* Buttons */
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+    background: var(--hutao-red) !important;
+    color: var(--hutao-white) !important;
+    border: 1px solid var(--hutao-dark-red) !important;
+    border-radius: 4px !important;
+    transition: all 0.3s !important;
+}
+
+.button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, a.button:hover {
+    background: var(--hutao-dark-red) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3) !important;
+}
+
+.button.default, input[type=submit].default, .submit-row input.default {
+    background: var(--hutao-gold) !important;
+    color: var(--hutao-white) !important;
+    border: 1px solid var(--hutao-brown) !important;
+}
+
+.button.default:hover, input[type=submit].default:hover, .submit-row input.default:hover {
+    background: var(--hutao-brown) !important;
+}
+
+/* Links */
+a:link, a:visited {
+    color: var(--hutao-red) !important;
+}
+
+a:hover {
+    color: var(--hutao-dark-red) !important;
+}
+
+/* Object Tools */
+.object-tools a:link, .object-tools a:visited {
+    background: var(--hutao-red) !important;
+    color: var(--hutao-white) !important;
+    border-radius: 4px !important;
+    transition: all 0.3s !important;
+}
+
+.object-tools a:hover {
+    background: var(--hutao-dark-red) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3) !important;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+    background: var(--hutao-light-gray) !important;
+    border-bottom: 1px solid var(--hutao-gray) !important;
+}
+
+.breadcrumbs a {
+    color: var(--hutao-red) !important;
+}
+
+/* Form Fields */
+.form-row input, .form-row textarea, .form-row select {
+    border: 2px solid var(--hutao-light-gray) !important;
+    border-radius: 4px !important;
+    transition: all 0.3s !important;
+}
+
+.form-row input:focus, .form-row textarea:focus, .form-row select:focus {
+    border-color: var(--hutao-red) !important;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+}
+
+/* Table Styling */
+#result_list {
+    border: 1px solid var(--hutao-gray) !important;
+    border-radius: 4px !important;
+}
+
+#result_list thead th {
+    background: linear-gradient(135deg, var(--hutao-red) 0%, var(--hutao-dark-red) 100%) !important;
+    color: var(--hutao-white) !important;
+    border-bottom: 2px solid var(--hutao-gold) !important;
+}
+
+#result_list tbody tr:nth-child(even) {
+    background-color: rgba(231, 76, 60, 0.05) !important;
+}
+
+#result_list tbody tr:hover {
+    background-color: rgba(231, 76, 60, 0.1) !important;
+}
+
+/* Pagination */
+.paginator {
+    background: var(--hutao-light-gray) !important;
+    border-radius: 4px !important;
+    padding: 10px !important;
+}
+
+.paginator a:link, .paginator a:visited {
+    background: var(--hutao-red) !important;
+    color: var(--hutao-white) !important;
+    border-radius: 4px !important;
+    padding: 5px 10px !important;
+    margin: 0 2px !important;
+    text-decoration: none !important;
+}
+
+.paginator a:hover {
+    background: var(--hutao-dark-red) !important;
+}
+
+.paginator .this-page {
+    background: var(--hutao-gold) !important;
+    color: var(--hutao-white) !important;
+}
+
+/* Sidebar */
+.module {
+    border: 1px solid var(--hutao-gray) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Messages */
+.messagelist {
+    border-radius: 4px !important;
+}
+
+.messagelist li {
+    border-radius: 4px !important;
+    margin-bottom: 10px !important;
+}
+
+.messagelist li.success {
+    background: rgba(39, 174, 96, 0.1) !important;
+    border: 1px solid #27AE60 !important;
+    color: #27AE60 !important;
+}
+
+.messagelist li.error {
+    background: rgba(231, 76, 60, 0.1) !important;
+    border: 1px solid var(--hutao-red) !important;
+    color: var(--hutao-red) !important;
+}
+
+.messagelist li.warning {
+    background: rgba(243, 156, 18, 0.1) !important;
+    border: 1px solid var(--hutao-gold) !important;
+    color: var(--hutao-gold) !important;
+}
+
+/* Login Form */
+.login {
+    background: linear-gradient(135deg, var(--hutao-red) 0%, var(--hutao-dark-red) 50%, var(--hutao-brown) 100%) !important;
+}
+
+.login #header {
+    background: transparent !important;
+    border-bottom: none !important;
+}
+
+.login #content {
+    background: var(--hutao-white) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    margin-top: 50px !important;
+}
+
+.login .form-row {
+    padding: 15px !important;
+}
+
+.login .submit-row {
+    padding: 15px !important;
+    background: var(--hutao-light-gray) !important;
+    border-radius: 0 0 8px 8px !important;
+}
+
+/* Custom Hu Tao Elements */
+.hu-tao-emoji::before {
+    content: "💀";
+    margin-right: 5px;
+}
+
+.hu-tao-sparkle::after {
+    content: "✨";
+    margin-left: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    #header {
+        padding: 10px !important;
+    }
+    
+    .object-tools {
+        margin-top: 10px !important;
+    }
+    
+    .object-tools a {
+        display: block !important;
+        margin-bottom: 5px !important;
+    }
+}
