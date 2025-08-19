@@ -471,11 +471,11 @@
     <!-- Header -->
     <div class="chat-header">
         <div class="header-left">
-            <button class="back-button" onclick="window.location.href='{% url 'login' %}'">←</button>
+            <button class="back-button" id="backButton">🚪</button>
             <span class="chat-title">Hu Tao's Parlor 💀</span>
         </div>
         <div class="header-right">
-            <button class="logout-button" onclick="window.location.href='{% url 'logout' %}'" title="Logout">🚪</button>
+            <button class="logout-button" id="logoutButton" title="Logout">🚶</button>
         </div>
         <div class="hutao-avatar">
             <img src="{% static 'images/hutao.jpg' %}" alt="Hu Tao" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
@@ -648,5 +648,14 @@ messageForm.addEventListener('submit', (event) => {
 
 // Auto-scroll to bottom on load
 window.addEventListener('load', scrollToBottom);
+
+// Add event listeners for navigation buttons
+document.getElementById('backButton').addEventListener('click', function() {
+    window.location.href = '{% url "home" %}';
+});
+
+document.getElementById('logoutButton').addEventListener('click', function() {
+    window.location.href = '{% url "logout" %}';
+});
 </script>
 {% endblock %}

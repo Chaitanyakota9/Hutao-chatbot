@@ -5,23 +5,39 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from .models import Chat
 from django.utils import timezone
-from decouple import config
+import os
 
-openai_api_key = config("OPENAI_API_KEY", default="your-api-key-here")
+# Try to get API key from environment variables
+openai_api_key = os.getenv("OPENAI_API_KEY", "your-api-key-here")
 openai.api_key = openai_api_key
 
 def ask_openai(message):
-    from openai import OpenAI
-    client = OpenAI(api_key=openai_api_key)
-    response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {"role": "system", "content": "You are Hu Tao from Genshin Impact, the 77th Director of the Wangsheng Funeral Parlor. You are playful, mischievous, and love making jokes about death and the afterlife. You speak with enthusiasm and often use phrases like \"Yo-ho!\", \"💀\", and \"✨\". You are friendly but have a dark sense of humor. Keep responses concise and in character."},
-            {"role": "user", "content": message},
-        ]
-    )
-    
-    answer = response.choices[0].message.content
+    try:
+        # Try new OpenAI API (v1.0+)
+        from openai import OpenAI
+        client = OpenAI(api_key=openai_api_key)
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": "You are Hu Tao from Genshin Impact, the 77th Director of the Wangsheng Funeral Parlor. You are playful, mischievous, and love making jokes about death and the afterlife. You speak with enthusiasm and often use phrases like 'Yo-ho!', '💀', and '✨'. You are friendly but have a dark sense of humor. Keep responses concise and in character."},
+                {"role": "user", "content": message},
+            ]
+        )
+        answer = response.choices[0].message.content
+    except Exception as e:
+        try:
+            # Fallback to old OpenAI API (v0.x)
+            response = openai.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": "You are Hu Tao from Genshin Impact, the 77th Director of the Wangsheng Funeral Parlor. You are playful, mischievous, and love making jokes about death and the afterlife. You speak with enthusiasm and often use phrases like 'Yo-ho!', '💀', and '✨'. You are friendly but have a dark sense of humor. Keep responses concise and in character."},
+                    {"role": "user", "content": message},
+                ]
+            )
+            answer = response.choices[0].message.content
+        except Exception as fallback_error:
+            # Return a default Hu Tao response if OpenAI fails
+            answer = "Yo-ho! *adjusts hat* Sorry, I'm having trouble connecting to the spirit world right now! 💀✨ Please try again later!"
     if answer:
         answer = answer.strip()
     return answer
@@ -29,7 +45,7 @@ def ask_openai(message):
 # Create your views here.
 def chatbot(request):
     if not request.user.is_authenticated:
-        return redirect("login")
+        return redirect("home")
     
     # Initialize chats as empty list for unauthenticated users or if Chat model is not properly configured
     try:
@@ -39,14 +55,23 @@ def chatbot(request):
 
     if request.method == "POST":
         message = request.POST.get("message")
-        response = ask_openai(message)
-
-        chat = Chat(user=request.user, message=message, response=response, created_at=timezone.now())
-        chat.save()
-        return JsonResponse({"message": message, "response": response})
+        if not message or not message.strip():
+            return JsonResponse({"error": "Message cannot be empty"}, status=400)
+        
+        try:
+            response = ask_openai(message)
+            chat = Chat(user=request.user, message=message, response=response, created_at=timezone.now())
+            chat.save()
+            return JsonResponse({"message": message, "response": response})
+        except Exception as e:
+            return JsonResponse({"error": "Sorry, I'm having trouble right now. Please try again!"}, status=500)
     return render(request, "chatbot.html", {"chats": chats})
 
 def login(request):
+    # If user is already authenticated, redirect to chatbot
+    if request.user.is_authenticated:
+        return redirect("chatbot")
+    
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -103,4 +128,4 @@ def register(request):
 
 def logout(request):
     auth.logout(request)
-    return redirect("login")
+    return redirect("home")
